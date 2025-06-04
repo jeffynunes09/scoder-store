@@ -64,3 +64,55 @@
   font-size: 0.85rem;
   border-top: 1px solid #ccc;
 }
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 1.5rem 0.5rem;
+    gap: 1.5rem;
+  }
+
+  .footer h4 {
+    font-size: 0.95rem;
+  }
+
+  .footer ul li {
+    margin-bottom: 0.4rem;
+  }
+
+  .social-icons a {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    gap: 1rem;
+  }
+
+  .footer h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .footer ul li {
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+
+  .social-icons a {
+    font-size: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    padding: 0.8rem 0;
+  }
+}
