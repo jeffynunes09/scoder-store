@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { formatCurrency } from "../utils/functions";
 
 
 export const Cart = () => {
@@ -40,7 +41,7 @@ export const Cart = () => {
                 </>
             )}
             </div>
-                  <h3>Total: ${total.toFixed(2)}</h3>
+                  <h3>Total: ${formatCurrency(total)}</h3>
                     <button className="button confirm" onClick={handlePurchase}>
                         Confirmar compra
                     </button>

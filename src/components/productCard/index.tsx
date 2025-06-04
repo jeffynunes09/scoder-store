@@ -3,6 +3,7 @@ import { useCart } from "../../hooks/useCart";
 import type { Product } from "../../types";
 import "./index.css"
 import { useAuth } from "../../hooks/useAuth";
+import { formatCurrency } from "../../utils/functions";
 interface Props {
   product: Product;
 }
@@ -25,7 +26,7 @@ export const ProductCard = ({ product }: Props) => {
         onClick={() => handleClick()}
       />
       <h3 className="card-title">{product.title}</h3>
-      <p className="card-price">${product.price}</p>
+      <p className="card-price">{formatCurrency(product.price)}</p>
       <button className="button" onClick={() => user ? addToCart(product) : verifyUserLogin()}>
         Adicionar ao carrinho
       </button>

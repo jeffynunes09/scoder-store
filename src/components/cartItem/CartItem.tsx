@@ -1,5 +1,6 @@
 import { type CartItem } from "../../types";
 import { useCart } from "../../hooks/useCart";
+import { formatCurrency } from "../../utils/functions";
 export const CartItemComponent = ({ item }: { item: CartItem }) => {
     const { removeFromCart } = useCart();
     return (
@@ -7,7 +8,8 @@ export const CartItemComponent = ({ item }: { item: CartItem }) => {
         >
             <h4>{item.title}</h4>
             <p>Quantidade: {item.quantity}</p>
-            <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+            <img src={item.image} alt="" />
+            <p>Total: {(formatCurrency(item.price * item.quantity))}</p>
             <button className="button red" onClick={() =>
                 removeFromCart(item.id)}>
                 Remover
