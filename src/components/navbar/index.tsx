@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSearch } from "../../context/searchContext";
 import { useAuth } from "../../hooks/useAuth";
 import "./index.css";
 import { useCart } from "../../hooks/useCart";
+import { useSearch } from "../../context/searchContext";
 
 export function Navbar() {
   const { user, logout } = useAuth();

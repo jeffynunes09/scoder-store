@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from "./pages/home";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { CartProvider } from "./context/CartContext";
@@ -10,6 +9,7 @@ import { SearchProvider } from "./context/searchContext";
 import Footer from "./components/footer";
 import ProductPage from "./pages/ProductPage";
 import { CreateAccount } from "./pages/CreateAccount";
+import { Home } from "./pages/Home";
 
 function App() {
   return (
