@@ -31,19 +31,15 @@ const {user} = useAuth()
     clearCart();
   };
 
-  if (submittedData) {
-    return (
-      <div className="container">
+  return (
+    <>
+    {
+       submittedData ? (     <div className="container">
         <h2>✅ Pedido realizado com sucesso!</h2>
         <p><strong>Nome:</strong> {submittedData.name}</p>
         <p><strong>Email:</strong> {submittedData.email}</p>
         <p>Seu pedido está em processamento.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container">
+      </div>):(    <div className="container">
       <h2>Finalizar Pagamento</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <input type="text" placeholder="Nome completo" {...register("name")} value={user?.name}/>
@@ -63,6 +59,8 @@ const {user} = useAuth()
 
         <button className="button" type="submit">Pagar</button>
       </form>
-    </div>
-  );
+    </div>) 
+    }
+    </>
+  )
 };
