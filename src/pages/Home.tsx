@@ -15,7 +15,7 @@ export const Home = () => {
     useEffect(() => {
         fetchProducts().then(setProducts).catch(console.error);
     }, []);
-
+    
     const filtered = products.filter((p) =>
         p.title.toLowerCase().includes(search.toLowerCase())
     );

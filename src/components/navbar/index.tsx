@@ -1,47 +1,55 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearch } from "../../context/SearchContext";
 import { useAuth } from "../../hooks/useAuth";
-import "./index.css"
+import "./index.css";
 import { useCart } from "../../hooks/useCart";
+
 export function Navbar() {
   const { user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const { search, setSearch } = useSearch();
-  const {cart} = useCart()
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { cart } = useCart();
+  const [inputValue, setInputValue] = useState(search);
 
-    console.log("Buscar:", search);
+  useEffect(() => {
+    if (user) setShowDropdown(false);
+  }, [user]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearch(inputValue.trim());
   };
 
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Logo */}
         <NavLink to="/">
-          <img src="public/assets/logo.png" alt="Logo" className="logo" />
+          <img src="/assets/logo.png" alt="Logo" className="logo" />
         </NavLink>
 
-        {/* Barra de busca */}
-        <form onSubmit={handleSearch} className="search-form">
+        <form onSubmit={handleSubmit} className="search-form">
           <input
             type="text"
             placeholder="Buscar produtos, marcas e muito mais…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
           <button type="submit">🔍</button>
         </form>
 
-        {/* Links e perfil */}
         <div className="right-section">
-
-
           {user ? (
             <div className="profile-menu">
-              <button className="profile-btn" onClick={() => setShowDropdown(!showDropdown)}>
-                <img src="public/assets/profile.jpg" alt="Perfil" className="profile-img" />
+              <button
+                className="profile-btn"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                <img
+                  src="/assets/profile.jpg"
+                  alt="Perfil"
+                  className="profile-img"
+                />
                 <span>{user.email}</span>
               </button>
 
@@ -52,19 +60,21 @@ export function Navbar() {
               )}
             </div>
           ) : (
-          <div className="create-account">
-                <NavLink to="/login" className="login-btn">
-              Entrar
-            </NavLink>
-          </div>
+            <div className="create-account">
+              <NavLink to="/login" className="login-btn">
+                Entrar
+              </NavLink>
+            </div>
           )}
+
           <div className="create-account parent">
-            <span className="countProductsInCart">
-              {cart.length}
-            </span>
-          <NavLink to="/cart" className={({ isActive }) => isActive ? "active-link" : ""}>
-            🛒
-          </NavLink>
+            <span className="countProductsInCart">{cart.length}</span>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              🛒
+            </NavLink>
           </div>
         </div>
       </div>
