@@ -28,6 +28,7 @@ export const Cart = () => {
     return (
         <div className="container">
             <h2>Seu carrinho</h2>
+            <div className="grid">
             {cart.length === 0 ? (
                 <p>Nenhum item no carrinho</p>
             ) : (
@@ -35,12 +36,14 @@ export const Cart = () => {
                     {cart.map(item => (
                         <CartItemComponent key={item.id} item={item} />
                     ))}
-                    <h3>Total: ${total.toFixed(2)}</h3>
-                    <button className="button" onClick={handlePurchase}>
-                        Confirmar compra
-                    </button>
+              
                 </>
             )}
+            </div>
+                  <h3>Total: ${total.toFixed(2)}</h3>
+                    <button className="button confirm" onClick={handlePurchase}>
+                        Confirmar compra
+                    </button>
         </div>
     );
 };

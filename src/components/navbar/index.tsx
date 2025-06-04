@@ -25,7 +25,9 @@ export function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <NavLink to="/">
-          <img src="/assets/logo.png" alt="Logo" className="logo" />
+          <img src="/assets/logo.png" alt="Logo" className="logo" 
+          onClick={()=>{setSearch("")}}
+          />
         </NavLink>
 
         <form onSubmit={handleSubmit} className="search-form">

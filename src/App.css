@@ -306,7 +306,9 @@
   width: 100%;
   max-width: 100%;
 }
-
+.confirm{
+    margin-bottom: 40px;
+}
 .product-info {
   flex: 1;
   display: flex;

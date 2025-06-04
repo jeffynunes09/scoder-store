@@ -25,8 +25,7 @@ const {user} = useAuth()
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+  console.log(cart)
   const onSubmit = (data: FormData) => {
     setSubmittedData(data);
     clearCart();
@@ -38,7 +37,6 @@ const {user} = useAuth()
         <h2>✅ Pedido realizado com sucesso!</h2>
         <p><strong>Nome:</strong> {submittedData.name}</p>
         <p><strong>Email:</strong> {submittedData.email}</p>
-        <p><strong>Total da compra:</strong> ${total.toFixed(2)}</p>
         <p>Seu pedido está em processamento.</p>
       </div>
     );
