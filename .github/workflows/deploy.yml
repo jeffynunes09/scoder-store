@@ -1,37 +1,23 @@
-# .github/workflows/vercel-deploy-pr.yml
-name: Deploy React to Vercel on PR
+name: Vercel PR Preview
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [main]
 
 jobs:
-  build-and-deploy:
+  vercel-preview:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
+      - uses: actions/checkout@v3
 
       - name: Install Vercel CLI
-        run: npm install -g vercel
+        run: npm install --global vercel
 
-      - name: Deploy to Vercel (Preview)
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          vercel pull --yes --environment=preview
-          vercel --confirm --prebuilt --prod=false
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel Preview
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
