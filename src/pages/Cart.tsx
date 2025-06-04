@@ -2,10 +2,21 @@ import { useCart } from "../hooks/useCart";
 import { CartItemComponent } from "../components/CartItem";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export const Cart = () => {
   const { cart } = useCart();
+   const { user } = useAuth();
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/create-account");
+    }
+  }, [user, navigate]);
+
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -13,11 +24,11 @@ export const Cart = () => {
     navigate("/checkout");
   };
 
-  return (
+   return (
     <div className="container">
-      <h2>Seu carrinho</h2>
+      <h2>Your Cart</h2>
       {cart.length === 0 ? (
-        <p>Nenhum item no carrinho.</p>
+        <p>No items in cart.</p>
       ) : (
         <>
           {cart.map(item => (
@@ -25,7 +36,7 @@ export const Cart = () => {
           ))}
           <h3>Total: ${total.toFixed(2)}</h3>
           <button className="button" onClick={handlePurchase}>
-            Confirmar compra
+            Confirm Purchase
           </button>
         </>
       )}

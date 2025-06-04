@@ -1,67 +1,68 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import "../App.css";
+import { useCart } from "../hooks/useCart";
 
 const schema = z.object({
-  fullName: z.string().min(3, "Nome completo obrigatório"),
+  name: z.string().min(3, "Nome obrigatório"),
   email: z.string().email("Email inválido"),
-  cardNumber: z.string().min(16, "Número do cartão deve ter 16 dígitos"),
-  expiry: z.string().min(5, "Data de expiração inválida"),
-  cvv: z.string().min(3, "CVV inválido"),
+  cardNumber: z.string().min(16, "Número do cartão inválido"),
+  expiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Formato MM/AA"),
+  cvc: z.string().min(3, "CVC inválido"),
 });
 
-type CheckoutForm = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 export const Checkout = () => {
+  const { cart, clearCart } = useCart();
+  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutForm>({
-    resolver: zodResolver(schema),
-  });
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (data: CheckoutForm) => {
-    console.log("Dados do pagamento:", data);
-    alert("Pagamento realizado com sucesso!");
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const onSubmit = (data: FormData) => {
+    setSubmittedData(data);
+    clearCart();
   };
+
+  if (submittedData) {
+    return (
+      <div className="container">
+        <h2>✅ Pedido realizado com sucesso!</h2>
+        <p><strong>Nome:</strong> {submittedData.name}</p>
+        <p><strong>Email:</strong> {submittedData.email}</p>
+        <p><strong>Total da compra:</strong> ${total.toFixed(2)}</p>
+        <p>Seu pedido está em processamento.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
       <h2>Finalizar Pagamento</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <label>
-          Nome completo
-          <input type="text" {...register("fullName")} />
-          {errors.fullName && <span className="error">{errors.fullName.message}</span>}
-        </label>
+        <input type="text" placeholder="Nome completo" {...register("name")} />
+        {errors.name && <p className="error">{errors.name.message}</p>}
 
-        <label>
-          Email
-          <input type="email" {...register("email")} />
-          {errors.email && <span className="error">{errors.email.message}</span>}
-        </label>
+        <input type="email" placeholder="Email" {...register("email")} />
+        {errors.email && <p className="error">{errors.email.message}</p>}
 
-        <label>
-          Número do cartão
-          <input type="text" maxLength={16} {...register("cardNumber")} />
-          {errors.cardNumber && <span className="error">{errors.cardNumber.message}</span>}
-        </label>
+        <input type="text" placeholder="Número do cartão" {...register("cardNumber")} />
+        {errors.cardNumber && <p className="error">{errors.cardNumber.message}</p>}
 
-        <label>
-          Validade (MM/AA)
-          <input type="text" placeholder="MM/AA" {...register("expiry")} />
-          {errors.expiry && <span className="error">{errors.expiry.message}</span>}
-        </label>
+        <input type="text" placeholder="MM/AA" {...register("expiry")} />
+        {errors.expiry && <p className="error">{errors.expiry.message}</p>}
 
-        <label>
-          CVV
-          <input type="text" maxLength={3} {...register("cvv")} />
-          {errors.cvv && <span className="error">{errors.cvv.message}</span>}
-        </label>
+        <input type="text" placeholder="CVC" {...register("cvc")} />
+        {errors.cvc && <p className="error">{errors.cvc.message}</p>}
 
-        <button type="submit" className="button">Pagar</button>
+        <button className="button" type="submit">Pagar</button>
       </form>
     </div>
   );
