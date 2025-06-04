@@ -7,7 +7,7 @@ import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import { Navbar } from "./components/navbar";
 import { SearchProvider } from "./context/SearchContext";
-import Footer from "./components/footer/Footer";
+import Footer from "./components/footer";
 import ProductPage from "./pages/ProductPage";
 import { CreateAccount } from "./pages/CreateAccount";
 
