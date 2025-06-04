@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCart } from "../hooks/useCart";
+import { useAuth } from "../hooks/useAuth";
 
 const schema = z.object({
   name: z.string().min(3, "Nome obrigatório"),
@@ -17,7 +18,7 @@ type FormData = z.infer<typeof schema>;
 export const Checkout = () => {
   const { cart, clearCart } = useCart();
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
-
+const {user} = useAuth()
   const {
     register,
     handleSubmit,
@@ -47,10 +48,10 @@ export const Checkout = () => {
     <div className="container">
       <h2>Finalizar Pagamento</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <input type="text" placeholder="Nome completo" {...register("name")} />
+        <input type="text" placeholder="Nome completo" {...register("name")} value={user?.name}/>
         {errors.name && <p className="error">{errors.name.message}</p>}
 
-        <input type="email" placeholder="Email" {...register("email")} />
+        <input type="email" placeholder="Email" {...register("email")} value={user?.email} />
         {errors.email && <p className="error">{errors.email.message}</p>}
 
         <input type="text" placeholder="Número do cartão" {...register("cardNumber")} />

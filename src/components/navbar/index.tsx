@@ -3,11 +3,12 @@ import { useState } from "react";
 import { useSearch } from "../../context/SearchContext";
 import { useAuth } from "../../hooks/useAuth";
 import "./index.css"
+import { useCart } from "../../hooks/useCart";
 export function Navbar() {
   const { user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const { search, setSearch } = useSearch();
-
+  const {cart} = useCart()
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -41,7 +42,7 @@ export function Navbar() {
             <div className="profile-menu">
               <button className="profile-btn" onClick={() => setShowDropdown(!showDropdown)}>
                 <img src="public/assets/profile.jpg" alt="Perfil" className="profile-img" />
-                <span>{user.name}</span>
+                <span>{user.email}</span>
               </button>
 
               {showDropdown && (
@@ -53,11 +54,14 @@ export function Navbar() {
           ) : (
           <div className="create-account">
                 <NavLink to="/create-account" className="login-btn">
-              Criar Conta
+              Entrar
             </NavLink>
           </div>
           )}
-          <div className="create-account">
+          <div className="create-account parent">
+            <span className="countProductsInCart">
+              {cart.length}
+            </span>
           <NavLink to="/cart" className={({ isActive }) => isActive ? "active-link" : ""}>
             🛒
           </NavLink>

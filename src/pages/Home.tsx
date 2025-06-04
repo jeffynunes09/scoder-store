@@ -29,11 +29,17 @@ export const Home = () => {
     return (
         <div>
             <ProductSlider />
-            <div className="container grid">
+           {
+            products ? ( <div className="container grid">
                 {paginatedProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
                 ))}
-            </div>
+            </div>) :(
+                <div>
+                    <h2>Nenhum produto encontrado!</h2>
+                </div>
+            )
+           }
 
             {totalPages > 1 && (
                 <div className="pagination">
