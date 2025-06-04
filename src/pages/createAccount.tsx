@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { useAuth } from "../hooks/useAuth";
 
 const schema = z.object({
   name: z.string().min(3, "Nome obrigatório"),
@@ -23,8 +23,8 @@ export const CreateAccount = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FormData) => {
-    login(data); // salva no contexto
-    navigate("/cart"); // redireciona para o carrinho
+    login(data);
+    navigate("/cart");
   };
 
   return (

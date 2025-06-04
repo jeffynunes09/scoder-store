@@ -1,5 +1,6 @@
-import { type Product } from "../types";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../../hooks/useCart";
+import type { Product } from "../../types";
+
 interface Props {
 product: Product;
 }
@@ -11,7 +12,7 @@ return (
 <h3 className="card-title">{product.title}</h3>
 <p className="card-price">${product.price}</p>
 <button className="button" onClick={() => addToCart(product)}>
-Add to Cart
+Adicionar ao carrinho
 </button>
 </div>
 );
