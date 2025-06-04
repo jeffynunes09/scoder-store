@@ -9,9 +9,8 @@ import { ProductSlider } from "../components/productSlider";
 export const Home = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const { search } = useSearch();
-
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 8;
+    const productsPerPage = 16;
 
     useEffect(() => {
         fetchProducts().then(setProducts).catch(console.error);
@@ -20,7 +19,6 @@ export const Home = () => {
     const filtered = products.filter((p) =>
         p.title.toLowerCase().includes(search.toLowerCase())
     );
-
     // Paginação
     const totalPages = Math.ceil(filtered.length / productsPerPage);
     const start = (currentPage - 1) * productsPerPage;
@@ -30,17 +28,22 @@ export const Home = () => {
         <div>
             <ProductSlider />
            {
-            products ? ( <div className="container grid">
+            products ? ( 
+                <>
+                <h1 className="title">Produtos</h1>
+                <div className="container grid">
+                
                 {paginatedProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
                 ))}
-            </div>) :(
+            </div>
+                </>
+            ) :(
                 <div>
                     <h2>Nenhum produto encontrado!</h2>
                 </div>
             )
            }
-
             {totalPages > 1 && (
                 <div className="pagination">
                     {[...Array(totalPages)].map((_, i) => (
