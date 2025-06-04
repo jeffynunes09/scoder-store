@@ -27,7 +27,7 @@ export const Cart = () => {
 
     return (
         <div className="container">
-            <h2>Seu cattinho</h2>
+            <h2>Seu carrinho</h2>
             {cart.length === 0 ? (
                 <p>Nenhum item no carrinho</p>
             ) : (

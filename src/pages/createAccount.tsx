@@ -24,7 +24,7 @@ export const CreateAccount = () => {
 
   const onSubmit = (data: FormData) => {
     login(data);
-    navigate("/cart");
+    navigate("/home");
   };
 
   return (
