@@ -14,9 +14,10 @@ export const ProductCard = ({ product }: Props) => {
   const navigate = useNavigate();
   const verifyUserLogin = () => {
     alert("Você precisa fazer login para adicionar ao carrinho!")
+    navigate(`/login`);
+
   }
   const handleClick = () => {
-    navigate(`/produto/${product.id}`);
   };
   return (
     <div className="card">

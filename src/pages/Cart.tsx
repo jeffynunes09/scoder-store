@@ -14,7 +14,7 @@ export const Cart = () => {
 
     useEffect(() => {
         if (!user) {
-            navigate("/create-account");
+            navigate("/login");
         }
     }, [user, navigate]);
 

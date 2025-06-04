@@ -53,7 +53,7 @@ export function Navbar() {
             </div>
           ) : (
           <div className="create-account">
-                <NavLink to="/create-account" className="login-btn">
+                <NavLink to="/login" className="login-btn">
               Entrar
             </NavLink>
           </div>

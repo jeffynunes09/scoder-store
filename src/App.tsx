@@ -20,7 +20,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/create-account" element={<CreateAccount />} />
+              <Route path="/login" element={<CreateAccount />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
                <Route path="/produto/:id" element={<ProductPage />} />
