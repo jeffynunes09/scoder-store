@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/api";
 import { type Product } from "../types";
-import { useSearch } from "../context/SearchContext";
 import "../App.css";
 import { ProductCard } from "../components/productCard";
 import { ProductSlider } from "../components/productSlider";
+import { useSearch } from "../context/searchContext";
 
 export const Home = () => {
     const [products, setProducts] = useState<Product[]>([]);

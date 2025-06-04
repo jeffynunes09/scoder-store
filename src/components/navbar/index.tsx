@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSearch } from "../../context/SearchContext";
+import { useSearch } from "../../context/searchContext";
 import { useAuth } from "../../hooks/useAuth";
 import "./index.css";
 import { useCart } from "../../hooks/useCart";
