@@ -3,7 +3,7 @@ import { fetchProducts } from "../services/api";
 import { type Product } from "../types";
 import { useSearch } from "../context/SearchContext";
 import "../App.css";
-import { ProductCard } from "../components/productCard/ProductCard";
+import { ProductCard } from "../components/productCard";
 import { ProductSlider } from "../components/productSlider";
 
 export const Home = () => {

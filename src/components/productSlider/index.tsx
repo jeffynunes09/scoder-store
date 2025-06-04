@@ -16,7 +16,7 @@ export const ProductSlider = () => {
       setCurrentIndex((prev) =>
         prev === sliderImages.length - 1 ? 0 : prev + 1
       );
-    }, 3000); // 3 segundos por imagem
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [sliderImages]);

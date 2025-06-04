@@ -9,6 +9,7 @@ import { Navbar } from "./components/navbar";
 import { SearchProvider } from "./context/SearchContext";
 import Footer from "./components/footer/Footer";
 import { CreateAccount } from "./pages/createAccount";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/create-account" element={<CreateAccount />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+               <Route path="/produto/:id" element={<ProductPage />} />
             </Routes>
           </BrowserRouter>
         </CartProvider>
