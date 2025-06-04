@@ -1,5 +1,5 @@
 import { useCart } from "../hooks/useCart";
-import { CartItemComponent } from "../components/cartItem/CartItem";
+import { CartItemComponent } from "../components/cartItem/index";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { useEffect } from "react";
