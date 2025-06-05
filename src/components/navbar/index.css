@@ -194,6 +194,7 @@
     .create-account a {
         font-size: 1rem;
         padding: 0.5rem;
+        margin-bottom: 10px;
     }
 
     .countProductsInCart {
