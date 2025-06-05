@@ -11,7 +11,7 @@ import { CartProvider } from "./context/cartContext";
 import { Cart } from "./pages/cart";
 import { Checkout } from "./pages/checkout";
 import { CreateAccount } from "./pages/createAccount";
-import ProductPage from "./pages/ProductPage";
+import ProductPage from "./pages/productPage";
 
 
 function App() {
