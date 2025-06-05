@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { type Product } from "../types";
-
+import { Button } from "../components/button";
+import { useAuth } from "../hooks/useAuth";
+import { useCart } from "../hooks/useCart";
 export default function ProductPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
-
+  const {user} = useAuth();
+  const { addToCart } = useCart();
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then((res) => res.json())
@@ -13,6 +17,11 @@ export default function ProductPage() {
       .catch(console.error);
   }, [id]);
 
+  const buyItem =(product:Product) => {
+    if(product){
+      addToCart(product)
+      navigate("/checkout") }
+  }  
   if (!product) return <p className="text-center mt-10">Carregando...</p>;
 
   return (
@@ -29,8 +38,20 @@ export default function ProductPage() {
     <p className="description">{product.description}</p>
 
     <div className="actions">
-      <button className="buy-button">Comprar agora</button>
-      <button className="cart-button">Adicionar ao carrinho</button>
+      <Button 
+      onClick={
+        ()=>{buyItem(product)}}
+      title="Comprar agora"
+      style={{width:"200px",height:"40px"}}/>
+      <Button 
+      onClick={() => user ?? addToCart(product)}
+      title="Adicionar ao carrinho"
+      style={{width:"200px",
+      height:"40px",
+      backgroundColor:"#fff",
+      border:"1px solid gray",
+      color:"#111",
+      }}/>
     </div>
 
     <div className="details">

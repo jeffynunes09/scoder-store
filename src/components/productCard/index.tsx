@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import type { Product } from "../../types";
 import "./index.css"
-import { useAuth } from "../../hooks/useAuth";
 import { formatCurrency } from "../../utils/functions";
+import { Button } from "../button";
 interface Props {
   product: Product;
 }
@@ -11,13 +11,7 @@ interface Props {
 
 export const ProductCard = ({ product }: Props) => {
   const { addToCart } = useCart();
-  const { user } = useAuth();
   const navigate = useNavigate();
-  const verifyUserLogin = () => {
-    alert("Você precisa fazer login para adicionar ao carrinho!")
-    navigate(`/login`);
-
-  }
   const handleClick = () => {
     navigate(`product/${product.id}`)
   };
@@ -28,9 +22,10 @@ export const ProductCard = ({ product }: Props) => {
       />
       <h3 className="card-title">{product.title}</h3>
       <p className="card-price">{formatCurrency(product.price)}</p>
-      <button className="button" onClick={() => user ? addToCart(product) : verifyUserLogin()}>
-        Adicionar ao carrinho
-      </button>
+      <Button 
+      onClick={()=> addToCart(product)} 
+      title="Adicionar ao carrinho" 
+      style={{maxWidth:"200px"}}/>
     </div>
   );
 };

@@ -17,6 +17,7 @@ export function Navbar() {
   }, [user]);
 
   const handleSubmit = (e: React.FormEvent) => {
+    setSearch("")
     e.preventDefault();
     setSearch(inputValue.trim());
   };

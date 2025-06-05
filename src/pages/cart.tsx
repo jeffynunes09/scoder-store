@@ -5,6 +5,7 @@ import "../App.css";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { formatCurrency } from "../utils/functions";
+import { Button } from "../components/button";
 
 export const Cart = () => {
     const { cart } = useCart();
@@ -27,7 +28,7 @@ export const Cart = () => {
             <h2>Seu carrinho</h2>
             <div className="grid">
             {cart.length === 0 ? (
-                <p>Nenhum item no carrinho</p>
+                <p style={{textAlign:"center"}}>Nenhum item no carrinho</p>
             ) : (
                 <>
                     {cart.map(item => (
@@ -38,9 +39,7 @@ export const Cart = () => {
             )}
             </div>
                   <h3>Total: ${formatCurrency(total)}</h3>
-                    <button className="button confirm" onClick={handlePurchase}>
-                        Confirmar compra
-                    </button>
+                  <Button style={{width:"200px"}} title={"Confirmar compra"} onClick={()=> handlePurchase()}/>
         </div>
     );
 };
