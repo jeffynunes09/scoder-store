@@ -1,6 +1,7 @@
 # 🛍 Scoder Store - Carrinho de Compras
 
 Este é um projeto de aplicação de carrinho de compras simples, que consome dados da [Fake Store API](https://fakestoreapi.com/). Ele permite listar produtos, adicionar e remover itens do carrinho, visualizar o total da compra e simular uma finalização de pedido.
+[Link do projeto ](https://scoder-store.vercel.app/)
 
 ---
 
