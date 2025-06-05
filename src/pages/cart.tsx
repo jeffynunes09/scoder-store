@@ -6,12 +6,10 @@ import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { formatCurrency } from "../utils/functions";
 
-
 export const Cart = () => {
     const { cart } = useCart();
     const { user } = useAuth();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         if (!user) {
@@ -19,9 +17,7 @@ export const Cart = () => {
         }
     }, [user, navigate]);
 
-
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
     const handlePurchase = () => {
         navigate("/checkout");
     };

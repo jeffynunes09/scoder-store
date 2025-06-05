@@ -1,9 +1,5 @@
 import { createContext, useContext, useState } from "react";
-
-interface SearchContextType {
-  search: string;
-  setSearch: (value: string) => void;
-}
+import type { SearchContextType } from "../types";
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 

@@ -1,16 +1,5 @@
 import { createContext,  useState, type ReactNode } from "react";
-
-type User = {
-  name?: string;
-  email?: string;
-  password:string
-};
-
-type AuthContextType = {
-  user: User | null;
-  login: (userData: User) => void;
-  logout: () => void;
-};
+import type { AuthContextType, User } from "../types";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
