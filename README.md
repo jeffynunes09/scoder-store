@@ -38,19 +38,11 @@ npm install
 
 # Rode a aplicação localmente
 npm run dev
-💼 Autor
-Desenvolvido por Jefferson Nunes
-GitHub: @jeffynunes09
+```
 
+## 💼 Autor
 
----
+Desenvolvido por **Jefferson Nunes**  
+GitHub: [@jeffynunes09](https://github.com/jeffynunes09)
 
-### ✅ O que fazer agora?
-
-1. **Salve esse conteúdo no arquivo** `README.md` na raiz do seu projeto.
-2. Faça um commit e push:
-
-```bash
-git add README.md
-git commit -m "docs: update README with deploy and project details"
-git push origin main
+📖 Acesse a [Wiki do Projeto](https://github.com/jeffynunes09/scoder-store/wiki) para mais detalhes sobre o fluxo de compra, login simulado e estrutura do código.
