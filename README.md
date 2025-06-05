@@ -22,7 +22,7 @@ A aplicação está disponível em:
 - ✅ Listagem de produtos via API externa
 - ✅ Visualização de detalhes de um produto
 - ✅ Adição e remoção de itens do carrinho
-- ✅ Simulação de checkout com cartão ou boleto
+- ✅ Simulação de checkout com cartão ou pix
 - ✅ Validação de formulário com Zod e React Hook Form
 - ✅ Verificação de login para ações como finalizar compra ou adicionar ao carrinho
 
