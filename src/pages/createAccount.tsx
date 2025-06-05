@@ -26,14 +26,12 @@ export const CreateAccount = () => {
 
   const onSubmit = (data: FormData) => {
     if (cart) {
-      console.log("ola1")
       login(data);
       navigate("/cart");
       return
     } else {
       login(data);
       navigate("/");
-      console.log("ola2")
     }
 
   };
