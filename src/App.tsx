@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Cart } from "./pages/cart";
-import { CartProvider } from "./context/cartContext";
+
 import "./App.css";
-import { AuthProvider } from "./context/authContext";
 import { Navbar } from "./components/navbar";
 import { SearchProvider } from "./context/searchContext";
 import Footer from "./components/footer";
-import ProductPage from "./pages/productPage";
-import { CreateAccount } from "./pages/createAccount";
-import { Home } from "./pages/Home";
+
+import { Home } from "./pages/home";
+import { AuthProvider } from "./context/authContext";
+import { CartProvider } from "./context/cartContext";
+import { Cart } from "./pages/cart";
 import { Checkout } from "./pages/checkout";
+import { CreateAccount } from "./pages/createAccount";
+import ProductPage from "./pages/ProductPage";
+
 
 function App() {
   return (
