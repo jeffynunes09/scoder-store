@@ -18,6 +18,10 @@ export default function ProductPage() {
   }, [id]);
 
   const buyItem =(product:Product) => {
+    if(!user){
+      navigate("/login")
+      return
+    }
     if(product){
       addToCart(product)
       navigate("/checkout") }
