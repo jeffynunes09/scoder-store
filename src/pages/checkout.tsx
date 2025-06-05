@@ -35,10 +35,12 @@ const {user} = useAuth()
     <>
     {
        submittedData ? (     <div className="container">
-        <h2>✅ Pedido realizado com sucesso!</h2>
+     <div className="form">
+         <h2>✅ Pedido realizado com sucesso!</h2>
         <p><strong>Nome:</strong> {submittedData.name}</p>
         <p><strong>Email:</strong> {submittedData.email}</p>
         <p>Seu pedido está em processamento.</p>
+     </div>
       </div>):(    <div className="container">
       <h2>Finalizar Pagamento</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
