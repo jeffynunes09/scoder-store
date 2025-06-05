@@ -2,10 +2,10 @@ body {
 margin: 0;
 font-family: Arial, sans-serif;
 background: linear-gradient(
-    180deg,
+  180deg,
     #ffe600 0%,
-    #ffe600 10%,
-    #ffffff 60%,
+    #ffe600 12%,
+    #ffffff 22%,
     #ffffff 100%
   );
 display: flex;
