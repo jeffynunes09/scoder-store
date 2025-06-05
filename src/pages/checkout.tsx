@@ -26,7 +26,7 @@ export const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState<"card" | "pix">("card");
   const [paymentModePix, setpaymentModePix] = useState<boolean>(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
-const [tempo, setTempo] = useState(60);
+  const [tempo, setTempo] = useState(60);
 
   const {
     register,
@@ -43,8 +43,8 @@ const [tempo, setTempo] = useState(60);
   const onSubmit = (data: FormData) => {
     if (paymentMethod === "pix") {
       setSubmittedData({
-        name:"",
-        email:"",
+        name: "",
+        email: "",
       })
       navigate("/")
       return;
@@ -53,34 +53,33 @@ const [tempo, setTempo] = useState(60);
       verifyUserLogin();
       return;
     }
-
     setSubmittedData(data);
     clearCart();
   };
 
-const generatePix = () =>{
-  setpaymentModePix(true)
-}
-
-useEffect(() => {
-  if (paymentMethod === "pix") {
-    setTempo(60);
-    const interval = setInterval(() => {
-      setTempo((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
+  const generatePix = () => {
+    setpaymentModePix(true)
   }
-}, [paymentMethod]);
-useEffect(()=>{
-if(tempo > 0)return
-navigate("/")
-},[tempo])
+
+  useEffect(() => {
+    if (paymentMethod === "pix") {
+      setTempo(60);
+      const interval = setInterval(() => {
+        setTempo((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [paymentMethod]);
+  useEffect(() => {
+    if (tempo > 0) return
+    navigate("/")
+  }, [tempo])
   return (
     <>
       {submittedData ? (
@@ -113,7 +112,7 @@ navigate("/")
                 type="radio"
                 value="pix"
                 checked={paymentMethod === "pix"}
-                onChange={() =>{ setPaymentMethod("pix")}}
+                onChange={() => { setPaymentMethod("pix") }}
               />
               Pix
             </label>
@@ -151,37 +150,37 @@ navigate("/")
             {/* QR Code Pix */}
             {paymentMethod === "pix" && (
               <div style={{ marginTop: "10px", textAlign: "center" }}>
-               {
-                paymentModePix ? (<></>):(
-                  <div className="form">
-                     <Button title="Gerar QR CODE" onClick={() => { generatePix() }} />
-                  </div>
-                )
-               }
+                {
+                  paymentModePix ? (<></>) : (
+                    <div className="form">
+                      <Button title="Gerar QR CODE" onClick={() => { generatePix() }} />
+                    </div>
+                  )
+                }
               </div>
             )}
 
-             {paymentMethod === "card" && (
+            {paymentMethod === "card" && (
               <Button title="Pagar" onClick={() => { handleSubmit(onSubmit) }} />
-             )}
+            )}
 
-             {
+            {
               paymentModePix && (
                 <>
-                   <div style={{ marginTop: "10px", textAlign: "center" }}>
-                <p style={{ fontStyle: "italic" }}>
-                  Escaneie o QR Code abaixo para efetuar o pagamento via Pix.
-                </p>
-                <img
-                  src="/assets/QR_Code.png"
-                  alt="QR Code Pix"
-                  style={{ marginTop: "10px", width: "200px", height: "200px" }}
-                />
-               <h2>Tempo restante: {tempo}s</h2>
-              </div>
+                  <div style={{ marginTop: "10px", textAlign: "center" }}>
+                    <p style={{ fontStyle: "italic" }}>
+                      Escaneie o QR Code abaixo para efetuar o pagamento via Pix.
+                    </p>
+                    <img
+                      src="/assets/QR_Code.png"
+                      alt="QR Code Pix"
+                      style={{ marginTop: "10px", width: "200px", height: "200px" }}
+                    />
+                    <h2>Tempo restante: {tempo}s</h2>
+                  </div>
                 </>
               )
-             }
+            }
           </form>
         </div>
       )}

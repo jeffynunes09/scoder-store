@@ -15,7 +15,7 @@ export const Home = () => {
     useEffect(() => {
         fetchProducts().then(setProducts).catch(console.error);
     }, []);
-    
+
     const filtered = products.filter((p) =>
         p.title.toLowerCase().includes(search.toLowerCase())
     );
@@ -26,23 +26,23 @@ export const Home = () => {
     return (
         <div>
             <ProductSlider />
-           {
-            products ? ( 
-                <>
-                <h1 className="title">Produtos</h1>
-                <div className="container grid">
-                
-                {paginatedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
-                </>
-            ) :(
-                <div>
-                    <h2>Nenhum produto encontrado!</h2>
-                </div>
-            )
-           }
+            {
+                products ? (
+                    <>
+                        <h1 className="title">Produtos</h1>
+                        <div className="container grid">
+
+                            {paginatedProducts.map((product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))}
+                        </div>
+                    </>
+                ) : (
+                    <div>
+                        <h2>Nenhum produto encontrado!</h2>
+                    </div>
+                )
+            }
             {totalPages > 1 && (
                 <div className="pagination">
                     {[...Array(totalPages)].map((_, i) => (

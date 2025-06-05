@@ -26,8 +26,8 @@ export function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <NavLink to="/">
-          <img src="/assets/logo.png" alt="Logo" className="logo" 
-          onClick={()=>{setSearch("")}}
+          <img src="/assets/logo.png" alt="Logo" className="logo"
+            onClick={() => { setSearch("") }}
           />
         </NavLink>
 

@@ -22,10 +22,10 @@ export const ProductCard = ({ product }: Props) => {
       />
       <h3 className="card-title">{product.title}</h3>
       <p className="card-price">{formatCurrency(product.price)}</p>
-      <Button 
-      onClick={()=> addToCart(product)} 
-      title="Adicionar ao carrinho" 
-      style={{maxWidth:"200px"}}/>
+      <Button
+        onClick={() => addToCart(product)}
+        title="Adicionar ao carrinho"
+        style={{ maxWidth: "200px" }} />
     </div>
   );
 };

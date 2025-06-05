@@ -16,7 +16,7 @@ type FormData = z.infer<typeof schema>;
 export const CreateAccount = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const cart =  useCart()
+  const cart = useCart()
 
   const {
     register,
@@ -30,7 +30,7 @@ export const CreateAccount = () => {
       login(data);
       navigate("/cart");
       return
-    }else{
+    } else {
       login(data);
       navigate("/");
       console.log("ola2")
@@ -42,15 +42,15 @@ export const CreateAccount = () => {
     <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-      <div className="div-form-input">
+        <div className="div-form-input">
           <input type="email" placeholder="Email" {...register("email")} />
-        {errors.email && <p className="error">{errors.email.message}</p>}
-      </div>
-       <div className="div-form-input">
-           <input type="password" placeholder="Digite sua senha" {...register("password")} />
-           {errors.password && <p className="error">{errors.password.message}</p>}  
-       </div>
-        <Button onClick={()=>{handleSubmit}} title="Entrar"/>
+          {errors.email && <p className="error">{errors.email.message}</p>}
+        </div>
+        <div className="div-form-input">
+          <input type="password" placeholder="Digite sua senha" {...register("password")} />
+          {errors.password && <p className="error">{errors.password.message}</p>}
+        </div>
+        <Button onClick={() => { handleSubmit }} title="Entrar" />
       </form>
     </div>
   );

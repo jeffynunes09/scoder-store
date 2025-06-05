@@ -6,9 +6,9 @@ interface PropsButton {
   onClick: () => void;
 }
 
-export const Button = ({style,title,onClick}:PropsButton)=>{
+export const Button = ({ style, title, onClick }: PropsButton) => {
   return (
-    <button className='button' 
+    <button className='button'
       onClick={onClick} style={style}>
       {title}
     </button>

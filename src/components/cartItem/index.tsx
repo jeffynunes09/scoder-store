@@ -11,7 +11,7 @@ export const CartItemComponent = ({ item }: { item: CartItem }) => {
             <p>Quantidade: {item.quantity}</p>
             <img src={item.image} alt="" />
             <p>Total: {(formatCurrency(item.price * item.quantity))}</p>
-            <Button style={{backgroundColor:"red", width:"200px"}} title={"Remover"} onClick={()=>removeFromCart(item.id)}/>
+            <Button style={{ backgroundColor: "red", width: "200px" }} title={"Remover"} onClick={() => removeFromCart(item.id)} />
         </div>
     );
 };

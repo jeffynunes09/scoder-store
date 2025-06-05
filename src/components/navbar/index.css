@@ -164,8 +164,6 @@
 
 }
 
-/* ================== Responsivo ================== */
-
 @media (max-width: 768px) {
     .nav-container {
         flex-wrap: wrap;
