@@ -27,9 +27,7 @@ export const Cart = () => {
         <div className="container">
             <h2>Seu carrinho</h2>
             <div className="grid">
-            {cart.length === 0 ? (
-                <p style={{textAlign:"center"}}>Nenhum item no carrinho</p>
-            ) : (
+            {cart.length > 0 && (
                 <>
                     {cart.map(item => (
                         <CartItemComponent key={item.id} item={item} />
