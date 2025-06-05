@@ -1,99 +1,56 @@
-# 🛍 Scoder Store - Carrinho de Compras
+# 🛍️ Scoder Store
 
-Este é um projeto de aplicação de carrinho de compras simples, que consome dados da [Fake Store API](https://fakestoreapi.com/). Ele permite listar produtos, adicionar e remover itens do carrinho, visualizar o total da compra e simular uma finalização de pedido.
-[Link do projeto ](https://scoder-store.vercel.app/)
+Aplicação desenvolvida para o desafio técnico de Desenvolvedor Frontend Júnior da **Scoder Tech Studio**.
 
----
+## 🔗 Deploy
 
-## 📋 Funcionalidades
+A aplicação está disponível em:  
+👉 [https://scoder-store.vercel.app](https://scoder-store.vercel.app)
 
-- 🔍 **Listagem de Produtos**  
-  A aplicação consome dados da **Fake Store API** para exibir uma lista de produtos com informações como imagem, título, descrição e preço.
+## 📦 Tecnologias utilizadas
 
-- ➕➖ **Adicionar / Remover do Carrinho**  
-  O usuário pode adicionar um ou mais produtos ao carrinho e também removê-los individualmente.
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Zod](https://zod.dev/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Router DOM](https://reactrouter.com/)
+- [Fake Store API](https://fakestoreapi.com/)
 
-- 🧾 **Visualização do Carrinho e Total**  
-  É possível visualizar todos os itens adicionados ao carrinho, juntamente com o valor total da compra.
+## 🧪 Funcionalidades
 
-- ✅ **Simulação de Compra**  
-  Ao clicar em "Finalizar Compra", uma simulação de pedido é realizada, apenas para fins demonstrativos (sem conexão com métodos reais de pagamento).
+- ✅ Listagem de produtos via API externa
+- ✅ Visualização de detalhes de um produto
+- ✅ Adição e remoção de itens do carrinho
+- ✅ Simulação de checkout com cartão ou boleto
+- ✅ Validação de formulário com Zod e React Hook Form
+- ✅ Verificação de login para ações como finalizar compra ou adicionar ao carrinho
 
----
+## 📁 Como rodar localmente
 
-## 🧰 Tecnologias Utilizadas
+```bash
+# Clone o repositório
+git clone https://github.com/jeffynunes09/scoder-store.git
+cd scoder-store
 
-- **[React](https://reactjs.org/)** com [Vite](https://vitejs.dev/): Framework e bundler para construção da interface SPA.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Utilizado para estilização rápida com classes utilitárias.
-- **Context API do React**: Usado para o gerenciamento global de estado do carrinho de compras.
-- **[React Hook Form](https://react-hook-form.com/)** + [Zod](https://zod.dev/): Para validação de formulários de maneira simples e robusta.
-- **TypeScript**: Tipagem estática para maior segurança e manutenção do código.
-
----
-
-## ▶️ Executando o Projeto Localmente
-
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
-Instale as dependências:
-
-bash
-Copiar
-Editar
+# Instale as dependências
 npm install
-Inicie o servidor de desenvolvimento:
 
-bash
-Copiar
-Editar
+# Rode a aplicação localmente
 npm run dev
-Acesse em seu navegador:
-👉 http://localhost:5173 (ou porta informada no terminal)
+💼 Autor
+Desenvolvido por Jefferson Nunes
+GitHub: @jeffynunes09
 
-🗂 Estrutura do Projeto (Exemplo)
-bash
-Copiar
-Editar
-src/
-├── components/        # Componentes reutilizáveis como ProductCard, CartModal
-├── context/           # Contexto do carrinho
-├── pages/             # Páginas principais: Home, Checkout
-├── services/          # Conexão com API (Fake Store API)
-├── types/             # Tipagens TypeScript
-├── utils/             # Funções auxiliares
-├── App.tsx            # Componente principal
-└── main.tsx           # Ponto de entrada da aplicação
-📦 API Utilizada
-Fake Store API
-Endpoint: https://fakestoreapi.com/products
 
-Exemplo de resposta:
+---
 
-json
-Copiar
-Editar
-{
-  "id": 1,
-  "title": "Produto Exemplo",
-  "price": 29.99,
-  "description": "Descrição do produto",
-  "category": "categoria",
-  "image": "url-da-imagem"
-}
-📌 Melhorias Futuras
-🧾 Integração com API de pagamento real (ex: Stripe)
+### ✅ O que fazer agora?
 
-👤 Cadastro e login de usuários
+1. **Salve esse conteúdo no arquivo** `README.md` na raiz do seu projeto.
+2. Faça um commit e push:
 
-📱 Layout responsivo aprimorado para dispositivos móveis
-
-🛒 Persistência do carrinho via localStorage
-
-👨‍💻 Autor
-Nome: [Seu Nome Aqui]
-
-GitHub: https://github.com/seu-usuario
-
-LinkedIn: [Seu Perfil no LinkedIn]
+```bash
+git add README.md
+git commit -m "docs: update README with deploy and project details"
+git push origin main
