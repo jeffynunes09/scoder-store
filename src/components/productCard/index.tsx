@@ -19,6 +19,7 @@ export const ProductCard = ({ product }: Props) => {
 
   }
   const handleClick = () => {
+    navigate(`product/${product.id}`)
   };
   return (
     <div className="card">

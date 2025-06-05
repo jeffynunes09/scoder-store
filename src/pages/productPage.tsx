@@ -16,7 +16,8 @@ export default function ProductPage() {
   if (!product) return <p className="text-center mt-10">Carregando...</p>;
 
   return (
-<div className="product-page-container">
+<div className="container">
+  <div className="product-page-container">
   <div className="product-image-container">
     <img src={product.image} alt={product.title} />
   </div>
@@ -38,6 +39,7 @@ export default function ProductPage() {
       <p><strong>Garantia:</strong> 12 meses com o fabricante</p>
     </div>
   </div>
+</div>
 </div>
 
   );
