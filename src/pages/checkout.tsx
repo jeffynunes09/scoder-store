@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,13 +21,12 @@ type FormData = z.infer<typeof schema>;
 export const Checkout = () => {
   const { clearCart } = useCart();
   const { user } = useAuth();
-  const verifyUserLogin = useVerifyUserLogin();
   const navigate = useNavigate();
-
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "boleto">("card");
+  const verifyUserLogin = useVerifyUserLogin();
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "pix">("card");
+  const [paymentModePix, setpaymentModePix] = useState<boolean>(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
-  const [isAwaitingPayment, setIsAwaitingPayment] = useState(false);
-  const [countdown, setCountdown] = useState(60);
+const [tempo, setTempo] = useState(60);
 
   const {
     register,
@@ -41,69 +40,57 @@ export const Checkout = () => {
     },
   });
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (isAwaitingPayment) {
-      timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            setIsAwaitingPayment(false);
-            setSubmittedData((data) => data); // Confirma o pagamento
-            navigate("/"); // Redireciona para a página inicial
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(timer);
-  }, [isAwaitingPayment, navigate]);
-
   const onSubmit = (data: FormData) => {
+    if (paymentMethod === "pix") {
+      setSubmittedData({
+        name:"",
+        email:"",
+      })
+      navigate("/")
+      return;
+    }
     if (!user) {
       verifyUserLogin();
       return;
     }
 
-    if (paymentMethod === "card") {
-      setSubmittedData(data);
-      clearCart();
-    } else if (paymentMethod === "boleto") {
-      setSubmittedData(data);
-      clearCart();
-      setIsAwaitingPayment(true);
-      setCountdown(60);
-    }
+    setSubmittedData(data);
+    clearCart();
   };
 
+const generatePix = () =>{
+  setpaymentModePix(true)
+}
+
+// novo useEffect:
+useEffect(() => {
+  if (paymentMethod === "pix") {
+    setTempo(60);
+    const interval = setInterval(() => {
+      setTempo((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }
+}, [paymentMethod]);
+useEffect(()=>{
+if(tempo > 0)return
+navigate("/")
+},[tempo])
   return (
     <>
-      {isAwaitingPayment ? (
-        <div className="container">
-          <div className="form">
-            <h2>⌛ Aguardando pagamento via boleto...</h2>
-            <p>O pagamento será confirmado em {countdown} segundos.</p>
-          </div>
-        </div>
-      ) : submittedData ? (
+      {submittedData ? (
         <div className="container">
           <div className="form">
             <h2>✅ Pedido realizado com sucesso!</h2>
-            <p>
-              <strong>Nome:</strong> {submittedData.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {submittedData.email}
-            </p>
-            <p>
-              Forma de pagamento:{" "}
-              <strong>
-                {paymentMethod === "card" ? "Cartão de Crédito" : "Boleto Bancário"}
-              </strong>
-            </p>
+            <p><strong>Nome:</strong> {submittedData.name}</p>
+            <p><strong>Email:</strong> {submittedData.email}</p>
+            <p>Forma de pagamento: <strong>{paymentMethod === "card" ? "Cartão de Crédito" : "Pix"}</strong></p>
             <p>Seu pedido está em processamento.</p>
           </div>
         </div>
@@ -125,28 +112,28 @@ export const Checkout = () => {
             <label style={{ marginLeft: "1rem" }}>
               <input
                 type="radio"
-                value="boleto"
-                checked={paymentMethod === "boleto"}
-                onChange={() => setPaymentMethod("boleto")}
+                value="pix"
+                checked={paymentMethod === "pix"}
+                onChange={() =>{ setPaymentMethod("pix")}}
               />
-              Boleto Bancário
+              Pix
             </label>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            {/* Campos comuns */}
-            <div className="div-form-input">
-              <input type="text" placeholder="Nome completo" {...register("name")} />
-              {errors.name && <p className="error">{errors.name.message}</p>}
-            </div>
-            <div className="div-form-input">
-              <input type="email" placeholder="Email" {...register("email")} />
-              {errors.email && <p className="error">{errors.email.message}</p>}
-            </div>
 
             {/* Campos específicos para cartão */}
             {paymentMethod === "card" && (
               <>
+                <div className="div-form-input">
+                  <input type="text" placeholder="Nome completo" {...register("name")} />
+                  {errors.name && <p className="error">{errors.name.message}</p>}
+                </div>
+                <div className="div-form-input">
+                  <input type="email" placeholder="Email" {...register("email")} />
+                  {errors.email && <p className="error">{errors.email.message}</p>}
+                </div>
+
                 <div className="div-form-input">
                   <input type="text" placeholder="Número do cartão" {...register("cardNumber")} />
                   {errors.cardNumber && <p className="error">{errors.cardNumber.message}</p>}
@@ -162,14 +149,40 @@ export const Checkout = () => {
               </>
             )}
 
-            {/* Mensagem para boleto */}
-            {paymentMethod === "boleto" && (
-              <p style={{ marginTop: "10px", fontStyle: "italic" }}>
-                O boleto será gerado após clicar em pagar.
-              </p>
+            {/* QR Code Pix */}
+            {paymentMethod === "pix" && (
+              <div style={{ marginTop: "10px", textAlign: "center" }}>
+               {
+                paymentModePix ? (<></>):(
+                  <div className="form">
+                     <Button title="Gerar QR CODE" onClick={() => { generatePix() }} />
+                  </div>
+                )
+               }
+              </div>
             )}
 
-            <Button title={paymentMethod === "boleto" ? "Gerar" : "Pagar"} onClick={handleSubmit(onSubmit)} />
+             {paymentMethod === "card" && (
+              <Button title="Pagar" onClick={() => { handleSubmit(onSubmit) }} />
+             )}
+
+             {
+              paymentModePix && (
+                <>
+                   <div style={{ marginTop: "10px", textAlign: "center" }}>
+                <p style={{ fontStyle: "italic" }}>
+                  Escaneie o QR Code abaixo para efetuar o pagamento via Pix.
+                </p>
+                <img
+                  src="/assets/QR_Code.png"
+                  alt="QR Code Pix"
+                  style={{ marginTop: "10px", width: "200px", height: "200px" }}
+                />
+               <h2>Tempo restante: {tempo}s</h2>
+              </div>
+                </>
+              )
+             }
           </form>
         </div>
       )}

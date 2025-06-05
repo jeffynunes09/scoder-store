@@ -20,6 +20,10 @@ export const Cart = () => {
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const handlePurchase = () => {
+        if(cart.length < 1){
+            alert("Adicione algum item ao carrinho!")
+            return
+        }
         navigate("/checkout");
     };
 
