@@ -42,10 +42,14 @@ export const CreateAccount = () => {
     <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <input type="email" placeholder="Email" {...register("email")} />
+      <div className="div-form-input">
+          <input type="email" placeholder="Email" {...register("email")} />
         {errors.email && <p className="error">{errors.email.message}</p>}
-        <input type="password" placeholder="Digite sua senha" {...register("password")} />
-        {errors.password && <p className="error">{errors.password.message}</p>}
+      </div>
+       <div className="div-form-input">
+           <input type="password" placeholder="Digite sua senha" {...register("password")} />
+           {errors.password && <p className="error">{errors.password.message}</p>}  
+       </div>
         <Button onClick={()=>{handleSubmit}} title="Entrar"/>
       </form>
     </div>

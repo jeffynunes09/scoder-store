@@ -33,7 +33,7 @@ export const Checkout = () => {
     if (!user) {
       verifyUserLogin()
       return
-    } 
+    }
 
     setSubmittedData(data);
     clearCart();
@@ -52,21 +52,31 @@ export const Checkout = () => {
         </div>) : (<div className="container">
           <h2>Finalizar Pagamento</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <input type="text" placeholder="Nome completo" {...register("name")} value={user?.name} />
-            {errors.name && <p className="error">{errors.name.message}</p>}
+            <div className="div-form-input">
+              <input type="text" placeholder="Nome completo" {...register("name")} value={user?.name} />
+              {errors.name && <p className="error">{errors.name.message}</p>}
+            </div>
+            <div className="div-form-input">
 
-            <input type="email" placeholder="Email" {...register("email")} value={user?.email} />
-            {errors.email && <p className="error">{errors.email.message}</p>}
+              <input type="email" placeholder="Email" {...register("email")} value={user?.email} />
+              {errors.email && <p className="error">{errors.email.message}</p>}
+            </div>
+            <div className="div-form-input">
 
-            <input type="text" placeholder="Número do cartão" {...register("cardNumber")} />
-            {errors.cardNumber && <p className="error">{errors.cardNumber.message}</p>}
+              <input type="text" placeholder="Número do cartão" {...register("cardNumber")} />
+              {errors.cardNumber && <p className="error">{errors.cardNumber.message}</p>}
+            </div>
+            <div className="div-form-input">
 
-            <input type="text" placeholder="MM/AA" {...register("expiry")} />
-            {errors.expiry && <p className="error">{errors.expiry.message}</p>}
+              <input type="text" placeholder="MM/AA" {...register("expiry")} />
+              {errors.expiry && <p className="error">{errors.expiry.message}</p>}
+            </div>
+            <div className="div-form-input">
 
-            <input type="text" placeholder="CVC" {...register("cvc")} />
-            {errors.cvc && <p className="error">{errors.cvc.message}</p>}
-            <Button title={"Pagar"} onClick={()=>{handleSubmit} }/>
+              <input type="text" placeholder="CVC" {...register("cvc")} />
+              {errors.cvc && <p className="error">{errors.cvc.message}</p>}
+            </div>
+            <Button title={"Pagar"} onClick={() => { handleSubmit }} />
           </form>
         </div>)
       }

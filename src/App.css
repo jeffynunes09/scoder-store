@@ -43,7 +43,9 @@
     flex-direction: column;
     font-weight: bold;
 }
-
+.div-form-input{
+  width: 400px;
+}
 .error {
     color: red;
     font-size: 0.9rem;
