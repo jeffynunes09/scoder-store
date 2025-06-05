@@ -19,7 +19,6 @@ export const Home = () => {
     const filtered = products.filter((p) =>
         p.title.toLowerCase().includes(search.toLowerCase())
     );
-    // Paginação
     const totalPages = Math.ceil(filtered.length / productsPerPage);
     const start = (currentPage - 1) * productsPerPage;
     const paginatedProducts = filtered.slice(start, start + productsPerPage);

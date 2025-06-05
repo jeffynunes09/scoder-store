@@ -62,7 +62,6 @@ const generatePix = () =>{
   setpaymentModePix(true)
 }
 
-// novo useEffect:
 useEffect(() => {
   if (paymentMethod === "pix") {
     setTempo(60);
