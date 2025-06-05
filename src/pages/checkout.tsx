@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,6 +6,7 @@ import { useCart } from "../hooks/useCart";
 import { useAuth } from "../hooks/useAuth";
 import { useVerifyUserLogin } from "../hooks/useVerifyLogin";
 import { Button } from "../components/button";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   name: z.string().min(3, "Nome obrigatório"),
@@ -18,12 +19,15 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export const Checkout = () => {
-  const { cart, clearCart } = useCart();
+  const { clearCart } = useCart();
   const { user } = useAuth();
   const verifyUserLogin = useVerifyUserLogin();
+  const navigate = useNavigate();
 
   const [paymentMethod, setPaymentMethod] = useState<"card" | "boleto">("card");
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+  const [isAwaitingPayment, setIsAwaitingPayment] = useState(false);
+  const [countdown, setCountdown] = useState(60);
 
   const {
     register,
@@ -37,25 +41,69 @@ export const Checkout = () => {
     },
   });
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (isAwaitingPayment) {
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsAwaitingPayment(false);
+            setSubmittedData((data) => data); // Confirma o pagamento
+            navigate("/"); // Redireciona para a página inicial
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [isAwaitingPayment, navigate]);
+
   const onSubmit = (data: FormData) => {
     if (!user) {
       verifyUserLogin();
       return;
     }
 
-    setSubmittedData(data);
-    clearCart();
+    if (paymentMethod === "card") {
+      setSubmittedData(data);
+      clearCart();
+    } else if (paymentMethod === "boleto") {
+      setSubmittedData(data);
+      clearCart();
+      setIsAwaitingPayment(true);
+      setCountdown(60);
+    }
   };
 
   return (
     <>
-      {submittedData ? (
+      {isAwaitingPayment ? (
+        <div className="container">
+          <div className="form">
+            <h2>⌛ Aguardando pagamento via boleto...</h2>
+            <p>O pagamento será confirmado em {countdown} segundos.</p>
+          </div>
+        </div>
+      ) : submittedData ? (
         <div className="container">
           <div className="form">
             <h2>✅ Pedido realizado com sucesso!</h2>
-            <p><strong>Nome:</strong> {submittedData.name}</p>
-            <p><strong>Email:</strong> {submittedData.email}</p>
-            <p>Forma de pagamento: <strong>{paymentMethod === "card" ? "Cartão de Crédito" : "Boleto Bancário"}</strong></p>
+            <p>
+              <strong>Nome:</strong> {submittedData.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {submittedData.email}
+            </p>
+            <p>
+              Forma de pagamento:{" "}
+              <strong>
+                {paymentMethod === "card" ? "Cartão de Crédito" : "Boleto Bancário"}
+              </strong>
+            </p>
             <p>Seu pedido está em processamento.</p>
           </div>
         </div>
@@ -121,7 +169,7 @@ export const Checkout = () => {
               </p>
             )}
 
-            <Button title="Pagar" onClick={()=>{handleSubmit}} />
+            <Button title={paymentMethod === "boleto" ? "Gerar" : "Pagar"} onClick={handleSubmit(onSubmit)} />
           </form>
         </div>
       )}
